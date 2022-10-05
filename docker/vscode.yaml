@@ -8,4 +8,5 @@
       args:
         creates: ~/.vscode/extensions/{{ item }}-*/package.json
       loop:
-        - ms-azuretools.vscode-docker
+        - ms-azuretools.vscode-docker                     # Docker Support
+        - ms-kubernetes-tools.vscode-kubernetes-tools     # Kubernetes Support

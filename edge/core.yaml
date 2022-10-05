@@ -6,7 +6,6 @@
     - set_fact: is_wsl={{ lookup('file', '/proc/version') is regex('(M|m)icrosoft') }}
 
     # Linux
-
     - name: "[Non-WSL] Add Microsoft APT package key"
       become: yes
       get_url:

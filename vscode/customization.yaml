@@ -29,11 +29,45 @@
         - editorconfig.editorconfig                       # EditorConfig for VS Code
         - ms-vsliveshare.vsliveshare-pack                 # Live Share Extension Pack
         - ms-vscode-remote.vscode-remote-extensionpack    # Remote Development
+        - ms-vscode-remote.remote-ssh-edit                # Remote SSH Config file editor
+        - ms-vscode-remote.remote-ssh-explorer            # Remote SSH Explorer
+        - ms-vscode.remote-repositories                   # Remote Git Repositories
+        - vscode-icons-team.vscode-icons                  # VSCode Icons
+        - visualstudioexptteam.vscodeintellicode          # Visual Studio IntelliCode
+        - ms-azure-devops.azure-pipelines                 # Azure Pipeline Support
+        - ms-vscode.azure-account                         # Azure Account settings sync
         - pkief.material-icon-theme                       # Material Icon Theme
         - pflannery.vscode-versionlens                    # Version Lens
         - streetsidesoftware.code-spell-checker           # Code Spell Checker
-        - thenikso.github-plus-theme                      # GitHub Plus Theme
-        - visualstudioexptteam.vscodeintellicode          # Visual Studio IntelliCode
+        - ifaxity.onedark                                 # Color Theme
+        - bradlc.vscode-tailwindcss                       # TailwindCSS plugin
+        - christian-kohler.path-intellisense              # TS/JS Path Intellisense
+        - dbaeumer.vscode-eslint                          # ESLint plugin
+        - dotjoshjohnson.xml                              # XML Formatter
+        - ecmel.vscode-html-css                           # Autocomplete for HTML attributes
+        - esbenp.prettier-vscode                          # Prettier plugin
+        - formulahendry.auto-close-tag                    # HTML Close Tag plugin
+        - formulahendry.auto-rename-tag                   # HTML Rename Tag plugin
+        - michelemelluso.code-beautifier                  # Code formatter
+        - redhat.vscode-yaml                              # YAML Support
+        - mattpocock.ts-error-translator                  # TS Error Translator
+        - runem.lit-plugin                                # Tagged html templates plugin
+        - tamasfe.even-better-toml                        # TOML Support
+        - csstools.postcss                                # PostCSS Support
+        - vue.volar                                       # Vue 3 Support
+        - msjsdiag.debugger-for-chrome                    # Chrome Debugger
+        - ms-edgedevtools.vscode-edge-devtools            # Edge Debugger
+        - techer.open-in-browser                          # Open file in browser
+        - zixuanchen.vitest-explorer                      # Vitest Plugin
+        - donjayamanne.typescript-notebook                # TypeScript REPL
+
+        - ms-vscode.powershell                            # Powershell Support
+
+        - alexcvzz.vscode-sqlite                          # SQLite support
+        - mtxr.sqltools                                   # SQL Support
+        - mtxr.sqltools-driver-mssql                      # MSSQl Support
+
+        - johnstoncode.svn-scm                            # SVN Support
 
     - name: Override default VS Code preferences
       copy:

@@ -4,14 +4,14 @@
 
   tasks:
     - name: Test for installed NodeJS LTS
-      shell: bash -ic "nvm ls lts/*" >/dev/null
-      register: nvm_ls
+      shell: bash -ic "n which lts" >/dev/null
+      register: n_which
       ignore_errors: yes
 
     - name: Install NodeJS LTS
-      command: bash -ic "nvm install lts/*"
-      when: nvm_ls.failed
+      command: bash -ic "n lts"
+      when: n_which.failed
 
     - name: Use NodeJS LTS by default
-      command: bash -ic "nvm use --lts"
-      when: nvm_ls.failed
+      command: bash -ic "n lts"
+      when: n_which.failed

@@ -1,0 +1,24 @@
+- name: zoxide
+  hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: Update APT package list
+      become: yes
+      apt:
+        update_cache: yes
+      when: apt_repository.changed
+      register: apt_update
+      retries: 5
+      until: apt_update is success
+
+    - name: Install APT package
+      become: yes
+      apt:
+        package: zoxide
+
+    - name: Enable zoxide
+      blockinfile:
+        path: ~/.bashrc
+        marker: "### {mark} Ansible managed: zoxide support"
+        block: |
+          eval "$(zoxide init bash)"

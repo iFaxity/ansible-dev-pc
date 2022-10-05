@@ -1,0 +1,90 @@
+- name: shell
+  hosts: 127.0.0.1
+  connection: local
+
+  tasks:
+    - set_fact: is_wsl={{ lookup('file', '/proc/version') is regex('(M|m)icrosoft') }}
+
+    - name: Enable grep coloring
+      blockinfile:
+        path: ~/.aliases
+        marker: "### {mark} Ansible managed: Grep coloring"
+        block: |
+          alias grep='grep --color=auto'
+
+    - name: Add profile
+      blockinfile:
+        path: ~/.profile
+        marker: "### {mark} Ansible managed: Bash profile"
+        block: |
+          # set PATH so it includes user's private bin if it exists
+          if [[ -d "$HOME/bin" ]]; then
+            PATH="$HOME/bin:$PATH"
+          fi
+
+          # set PATH so it includes user's private sbin if it exists
+          if [[ -d "$HOME/.local/bin" ]]; then
+            PATH="$HOME/.local/bin:$PATH"
+          fi
+
+    - name: Add default Bash config
+      blockinfile:
+        path: ~/.bashrc
+        marker: "### {mark} Ansible managed: Bash config"
+        block: |
+          # Enable bash completion
+          if [[ -f /etc/bash_completion ]]; then
+              source /etc/bash_completion
+          fi
+
+          # Set the PS1 prompt (with colors).
+          # Based on http://www-128.ibm.com/developerworks/linux/library/l-tip-prompt/
+          # And http://networking.ringofsaturn.com/Unix/Bash-prompts.php .
+          export PS1='\[\033[36m\]\u\[\033[m\]@\[\033[32m\]ubuntu:\[\033[33;1m\]\w\[\033[m\]\$ '
+          export CLICOLOR=1
+          export LS_COLORS='di=1;36:ln=1;31:so=37:pi=1;35:ex=37:bd=37:cd=37:su=37:sg=37:tw=1;36:ow=1;36'
+
+          # Set the default editor to nano.
+          export EDITOR=nano
+
+          # Avoid succesive duplicates in the bash command history.
+          export HISTCONTROL=ignoredups
+
+          # Append commands to the bash command history file (~/.bash_history)
+          # instead of overwriting it.
+          shopt -s histappend
+
+          # Append commands to the history every time a prompt is shown,
+          # instead of after closing the session.
+          PROMPT_COMMAND='history -a'
+
+          # Add aliases
+          if [ -f ~/.aliases ]; then
+              . ~/.aliases
+          fi
+
+    - name: "[WSL] Bash profile"
+      blockinfile:
+        path: ~/.profile
+        marker: "### {mark} Ansible managed: [WSL] Bash profile"
+        block: |
+          # Open in WSL using explorer.exe
+          function open() {
+            local path
+            path="$(pwd)"
+
+            if [[ "$1" ]]; then
+              path="$(realpath "$1")"
+            fi
+
+            # Check if path exists
+            if ! [[ -e "$path" ]]; then
+              printf '%s\n' 'Path doesn'"'"'t exist!'
+              return 1
+            fi
+
+            path="$(wslpath -w "$path")"
+            explorer.exe "$path"
+          }
+      when: is_wsl
+

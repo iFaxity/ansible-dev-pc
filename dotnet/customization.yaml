@@ -14,3 +14,16 @@
         - dotnet-outdated-tool
         - dotnet-reportgenerator-globaltool
         - dotnet-retire
+        - dotnet-ef
+
+    - name: Install templates
+      command: dotnet new -install {{ item }}
+      loop:
+        - Umbraco.Templates
+
+    - name: Create Omnisharp config file
+      copy:
+        src: omnisharp.json
+        dest: ~/.omnisharp/omnisharp.json
+
+

@@ -1,0 +1,22 @@
+- name: shell
+  hosts: 127.0.0.1
+  connection: local
+
+  tasks:
+    - name: Install Starship
+      shell:
+        cmd: "curl -sS https://starship.rs/install.sh | sh"
+        warn: false
+
+    - name: Enable Starship
+      blockinfile:
+        path: ~/.bashrc
+        marker: "### {mark} Ansible managed: Starship support"
+        block: |
+          export STARSHIP_CONFIG="$HOME/.config/starship/guttew.toml"
+          eval "$(starship init bash)"
+
+    - name: Create Starship config file
+      copy:
+        src: starship.toml
+        dest: ~/.config/starship/guttew.toml
